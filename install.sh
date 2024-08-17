@@ -39,10 +39,7 @@ sudo pacman -Syu --noconfirm
 # Define the list of packages to install
 packages=(
     zramswap preload python-dbus auto-cpufreq
-    xfce4-panel polkit-gnome xfdesktop blueman
-    xfce4-settings xfce4-power-manager xfce4-docklike-plugin
-    bc openbox obconf playerctl picom parcellite
-    numlockx rofi polybar lxappearance betterlockscreen
+    bc playerctl rofi polybar betterlockscreen
     zsh zsh-syntax-highlighting zsh-autosuggestions
    zsh-history-substring-search zsh-completions
 )
@@ -123,4 +120,14 @@ elif [ -n "$ETHERNET" ]; then
 else
     echo "No active network interfaces found."
 fi
-chmod u+rw /sys/class/backlight/intel_backlight/brightness
+BRIGHTNESS_PATH="/sys/class/backlight/intel_backlight/brightness"
+
+# Check if the path exists
+if [ -e "$BRIGHTNESS_PATH" ]; then
+    # Change permissions
+    chmod u+rw "$BRIGHTNESS_PATH"
+    echo "Permissions changed successfully for $BRIGHTNESS_PATH"
+else
+    echo "The specified path $BRIGHTNESS_PATH does not exist."
+fi
+
