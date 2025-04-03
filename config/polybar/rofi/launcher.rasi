@@ -6,12 +6,13 @@
 configuration {
 	modi:                       "drun,run,filebrowser,window";
     show-icons:                 true;
+    icon-theme:                 "Papirus-Dark";
     display-drun:               "";
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
-	drun-display-format:        "{name}";
-	window-format:              "{w} · {c} · {t}";
+    drun-display-format:        "{name}";
+    window-format:              "{w} · {c} · {t}";
 }
 
 /*****----- Global Properties -----*****/
