@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
-## Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
-
 # Import Current Theme
 RASI="$cd ~/.config/polybar/rofi/powermenu.rasi"
-CNFR="$cd ~/.config/polybar/rofi/confirm.rasi"
+#CNFR="$cd ~/.config/polybar/rofi/confirm.rasi"
 
 # Theme Elements
 prompt="`hostname` (`echo $DESKTOP_SESSION`)"
@@ -27,21 +25,15 @@ else
 	option_5=""
 	option_6=""
 fi
-cnflayout=`cat ${CNFR} | grep 'USE_ICON' | cut -d'=' -f2`
-if [[ "$cnflayout" == 'NO' ]]; then
-	yes=' Yes'
-	no=' No'
-else
-	yes=''
-	no=''
-fi
 
-# Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
 		-p "$prompt" \
 		-mesg "$mesg" \
 		-markup-rows \
+        -hover-select \
+        -me-select-entry '' \
+        -me-accept-entry MousePrimary \
 		-theme ${RASI}
 }
 
@@ -50,66 +42,25 @@ run_rofi() {
 	echo -e "$option_1\n$option_2\n$option_3\n$option_4\n$option_5\n$option_6" | rofi_cmd
 }
 
-# Confirmation CMD
-confirm_cmd() {
-	rofi -dmenu \
-		-p 'Confirmation' \
-		-mesg 'Are you Sure?' \
-		-theme ${CNFR}
-}
 
-# Ask for confirmation
-confirm_exit() {
-	echo -e "$yes\n$no" | confirm_cmd
-}
-
-# Confirm and execute
-confirm_run () {	
-	selected="$(confirm_exit)"
-	if [[ "$selected" == "$yes" ]]; then
-        ${1} && ${2} && ${3}
-    else
-        exit
-    fi	
-}
-
-# Execute Command
-run_cmd() {
-	if [[ "$1" == '--opt1' ]]; then
-		betterlockscreen --lock
-	elif [[ "$1" == '--opt2' ]]; then
-		confirm_run 'qdbus org.kde.Shutdown /Shutdown logout'
-	elif [[ "$1" == '--opt3' ]]; then
-		confirm_run 'mpc -q pause' 'pulsemixer --mute' 'betterlockscreen --suspend'
-	elif [[ "$1" == '--opt4' ]]; then
-		confirm_run 'systemctl hibernate'
-	elif [[ "$1" == '--opt5' ]]; then
-		confirm_run 'systemctl reboot'
-	elif [[ "$1" == '--opt6' ]]; then
-		confirm_run 'systemctl poweroff'
-	fi
-}
-
-
-# Actions
 chosen="$(run_rofi)"
 case ${chosen} in
     $option_1)
-		run_cmd --opt1
+		light-locker-command -l
         ;;
     $option_2)
-		run_cmd --opt2
+		xfce4-session-logout --logout
         ;;
     $option_3)
-		run_cmd --opt3
+		systemctl suspend
         ;;
     $option_4)
-		run_cmd --opt4
+		systemctl hibernate
         ;;
     $option_5)
-		run_cmd --opt5
+		systemctl reboot
         ;;
     $option_6)
-		run_cmd --opt6
+		systemctl poweroff
         ;;
 esac
