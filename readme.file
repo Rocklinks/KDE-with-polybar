@@ -1,0 +1,12 @@
+Here i have mentioned some new things like systray can be handled with polybar
+
+
+step 1: Install this package
+sudo pacman -S xorg-xkill
+
+step 2 Kill the window process owned by the kde plasma
+xkill -id 0x2200006
+
+Whoohoo
+
+this works
