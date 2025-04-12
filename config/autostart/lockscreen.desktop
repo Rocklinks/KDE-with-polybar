@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Utility;Network;
+Comment=mybar
+Exec=/home/rocklin/.config/polybar/scripts/screenlock.sh
+Icon=com.github.bartzaalberg.alias
+Name=Betterlockscreen
+PrefersNonDefaultGPU=false
+StartupNotify=true
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+
