@@ -38,8 +38,8 @@ fi
 sudo pacman -Syu --noconfirm
 # Define the list of packages to install
 packages=(
-    zramswap preload python-dbus auto-cpufreq
-    bc playerctl rofi polybar betterlockscreen
+    zramswap preload python-dbus xorg-xkill
+    bc playerctl rofi polybar 
     zsh zsh-syntax-highlighting zsh-autosuggestions
    zsh-history-substring-search zsh-completions
 )
