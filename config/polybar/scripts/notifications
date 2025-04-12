@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ICON=""  # You can change this Nerd Font icon
+
+case "$1" in
+    --icon)
+        echo "$ICON"
+        ;;
+    --toggle)
+        # Kill existing plasmawindowed instance if open
+        pkill -f "plasmawindowed org.kde.plasma.notifications"
+
+        # Run it (this shows the notification center as a floating window)
+        nohup plasmawindowed org.kde.plasma.notifications >/dev/null 2>&1 &
+        ;;
+esac
