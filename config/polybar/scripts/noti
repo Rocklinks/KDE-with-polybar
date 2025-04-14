@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Icon definitions
+ICON_BELL=""       # Normal bell icon
+ICON_ALERT=""      # Bell surrounded by vibrate icon (for notifications)
+
+# Path to a simple notification file (you can adjust this logic to your setup)
+NOTIFICATION_FILE="/tmp/notification_count"
+
+# Check if the notification file exists and has content
+if [ -f "$NOTIFICATION_FILE" ] && [ -s "$NOTIFICATION_FILE" ]; then
+    # If there are notifications (non-empty file)
+    echo "$ICON_ALERT"
+else
+    # Default icon if no notifications
+    echo "$ICON_BELL"
+fi
+
+exit 0
+

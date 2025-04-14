@@ -1,0 +1,1 @@
+[{"py/object": "msg.Msg", "mid": 1, "notid": {"py/object": "dbus.UInt32", "py/newargs": {"py/tuple": [0]}}, "message": "", "deadline": -1, "summary": "HI", "body": "", "application": "notify-send", "app_icon": "", "urgency": 1}]

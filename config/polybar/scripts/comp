@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Check if XFWM4 compositor is enabled
+#is_enabled=$(xfconf-query -c xfwm4 -p /general/use_compositing)
+#
+# Print icon for Polybar without toggling
+#if [ "$1" = "status" ]; then
+#    if [ "$is_enabled" = "true" ]; then
+#        echo ""
+#    else
+#        echo "" 
+#    fi
+#    exit 0
+#fi
+#
+# Toggle compositor only on click
+#xfconf-query -c xfwm4 -p /general/use_compositing -T
+
+
+#!/bin/bash
+
+# Function to handle XFCE
+handle_xfce() {
+    is_enabled=$(xfconf-query -c xfwm4 -p /general/use_compositing)
+
+    # Print icon for Polybar without toggling
+    if [ "$1" = "status" ]; then
+        if [ "$is_enabled" = "true" ]; then
+            echo ""
+        else
+            echo "" 
+        fi
+        exit 0
+    fi
+
+    # Toggle compositor only on click
+    xfconf-query -c xfwm4 -p /general/use_compositing -T
+}
+
+handle_kde_kwinrc() {
+    # Enable or disable compositing by modifying kwinrc
+    if [ "$1" = "enable" ]; then
+        sed -i 's/Enabled=false/Enabled=true/g' ~/.config/kwinrc
+    elif [ "$1" = "disable" ]; then
+        sed -i 's/Enabled=true/Enabled=false/g' ~/.config/kwinrc
+    fi
+
+    # Restart KWin to apply changes
+    qdbus org.kde.KWin /KWin org.kde.KWin.quit
+    kwin --replace &
+}
+
+
+# Check the desktop environment and call the appropriate function
+if [ "$XDG_CURRENT_DESKTOP" = "Xfce" ]; then
+    handle_xfce "$1"
+elif [ "$XDG_CURRENT_DESKTOP" = "KDE" ]; then
+    handle_kde_kwinrc "$1"
+else
+    echo "This script is for XFCE or KDE Plasma only."
+fi
+
