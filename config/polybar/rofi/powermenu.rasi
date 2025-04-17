@@ -1,148 +1,66 @@
-/**
- * Copyright (C) 2020-2024 Aditya Shakya <adi1090x@gmail.com>
- **/
+@import "colors.rasi"
 
-/*****----- Configuration -----*****/
 configuration {
-    show-icons:                 false;
+	font:							"Feather 30";
+    disable-history:            	false;
+	sidebar-mode: 					false;
+	show-icons:                     false;
 }
 
-/*****----- Global Properties -----*****/
-@import                          "shared/colors.rasi"
-@import                          "shared/fonts.rasi"
 
-/*
-USE_ICON=YES
-*/
+* {
+	background-color:				@background;
+	text-color:						@foreground;
+    background: #332E41;
+    background-light: #575268;
+    foreground: #DFDEF1;
+    foreground-dark: #988BA2;
+    primary: #C6AAE8;
+    bordercolor: #8caaee;
 
-/*****----- Main Window -----*****/
+}
+
 window {
-    transparency:                "real";
-    location:                    center;
-    anchor:                      center;
-    fullscreen:                  false;
-    width:                       600px;
-    x-offset:                    0px;
-    y-offset:                    0px;
-    margin:                      0px;
-    padding:                     0px;
-    border:                      0px solid;
-    border-radius:               10px;
-    border-color:                @selected;
-    cursor:                      "default";
-    background-color:            @background;
+    transparency:                   "real";
+    border-radius:                  4px;
+    location:                       center;
+	width:							600px;
+    border:                         2px solid;       /* Added */
+    border-color:                   #f4b8e4;         /* Frappe Blue */
+    background-color:               @background;     /* Ensure contrast */
 }
 
-/*****----- Main Box -----*****/
-mainbox {
-    enabled:                     true;
-    spacing:                     10px;
-    margin:                      0px;
-    padding:                     30px;
-    background-color:            transparent;
-    children:                    [ "inputbar", "message", "listview" ];
-}
-
-/*****----- Inputbar -----*****/
-inputbar {
-    enabled:                     true;
-    spacing:                     10px;
-    padding:                     0px;
-    border:                      0px;
-    border-radius:               0px;
-    border-color:                @selected;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    children:                    [ "textbox-prompt-colon", "prompt"];
-}
-
-textbox-prompt-colon {
-    enabled:                     true;
-    expand:                      false;
-    str:                         "";
-    padding:                     10px 14px;
-    border-radius:               100%;
-    background-color:            @active;
-    text-color:                  @background;
-}
-prompt {
-    enabled:                     true;
-    padding:                     10px;
-    border-radius:               20px;
-    background-color:            @selected;
-    text-color:                  @background;
-}
-
-/*****----- Message -----*****/
-message {
-    enabled:                     true;
-    margin:                      0px;
-    padding:                     10px;
-    border:                      0px solid;
-    border-radius:               12px;
-    border-color:                @selected;
-    background-color:            @background-alt;
-    text-color:                  @foreground;
-}
-textbox {
-    background-color:            inherit;
-    text-color:                  inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.0;
-}
-
-/*****----- Listview -----*****/
 listview {
-    enabled:                     true;
-    columns:                     6;
-    lines:                       1;
-    cycle:                       true;
-    scrollbar:                   false;
-    layout:                      vertical;
-    
-    spacing:                     10px;
-    background-color:            transparent;
-    cursor:                      "default";
+    columns:						5;
+    lines:							1;
+    spacing:                        12px;
+    cycle:                          true;
+    dynamic:                        true;
+    layout:                         vertical;
 }
 
-/*****----- Elements -----*****/
+mainbox {
+    children:                       [ listview ];
+    spacing:                        20px;
+    margin:                         20px;
+}
+
 element {
-    enabled:                     true;
-    padding:                     22px 10px;
-    border:                      0px solid;
-    border-radius:               12px;
-    border-color:                @selected;
-    background-color:            transparent;
-    text-color:                  @foreground;
-    cursor:                      pointer;
-}
-element-text {
-    font:                        "feather 20";
-    background-color:            transparent;
-    text-color:                  inherit;
-    cursor:                      inherit;
-    vertical-align:              0.5;
-    horizontal-align:            0.5;
+    background-color:               @background-light;
+    border-radius:                  4px;
 }
 
-element normal.normal,
-element alternate.normal {
-    background-color:            var(background-alt);
-    text-color:                  var(foreground);
+element-text {
+    background-color: 				inherit;
+    text-color:       				inherit;
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         20px 15px 20px 15px;
 }
-element normal.urgent,
-element alternate.urgent,
-element selected.active {
-    background-color:            var(urgent);
-    text-color:                  var(background);
-}
-element normal.active,
-element alternate.active,
-element selected.urgent {
-    background-color:            var(active);
-    text-color:                  var(background);
-}
-element selected.normal {
-    background-color:            var(selected);
-    text-color:                  var(background);
+
+element selected {
+	text-color: 					@background;
+	background-color:               @primary;
+	border-radius:                  4px;
 }
