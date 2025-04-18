@@ -50,9 +50,10 @@ case "$chosen" in
             xflock4
         elif [[ "$session" == *cinnamon* ]]; then
             cinnamon-screensaver-command --lock
-        elif [[ "$session" == *plasma* ]]; then
+        elif [[ "$session" == *kde* ]]; then
             # KDE Plasma 6
-            qdbus org.freedesktop.ScreenSaver /ScreenSaver Lock
+            SESSION_ID=$(loginctl | awk "/$(whoami)/ {print \$1; exit}")
+            loginctl lock-session "$SESSION_ID"
         elif [[ "$session" == *gnome* ]]; then
             # GNOME
             gnome-screensaver-command -l 2>/dev/null || loginctl lock-session
@@ -63,7 +64,7 @@ case "$chosen" in
             xfce4-session-logout --logout
         elif [[ "$session" == *cinnamon* ]]; then
             cinnamon-session-quit --logout --no-prompt
-        elif [[ "$session" == *plasma* ]]; then
+        elif [[ "$session" == *kde* ]]; then
             # KDE Plasma 6
             qdbus6 org.kde.Shutdown /Shutdown org.kde.Shutdown.logout
         elif [[ "$session" == *gnome* ]]; then
